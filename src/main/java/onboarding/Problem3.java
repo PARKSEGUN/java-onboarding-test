@@ -1,12 +1,17 @@
 package onboarding;
 
+import java.util.List;
+
 public class Problem3 {
     public static int solution(int number) {
         int answer = 0;
+        int[] countOfNumber = new int[number + 1];
+        countOfNumber[0] = 0;
         //1 ~ number 까지 반복
-        for(int currentNumber=1;currentNumber<=number;currentNumber++){
-            answer += countByNumber(currentNumber);
+        for(int i=1;i<=number;i++){
+            countOfNumber[i] = countOfNumber[i - 1] + countByNumber(i);
         }
+        answer = countOfNumber[number];
         return answer;
     }
     //리턴된 결과를 더해서 총 쳐야되는 손뼉 개수 리턴

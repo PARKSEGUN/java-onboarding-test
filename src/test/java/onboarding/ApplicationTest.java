@@ -88,6 +88,12 @@ class ApplicationTest {
             int result = 14;
             assertThat(Problem3.solution(number)).isEqualTo(result);
         }
+        @Test
+        void case3() {
+            int number = 35;
+            int result = 16;
+            assertThat(Problem3.solution(number)).isEqualTo(result);
+        }
     }
 
     @Nested
