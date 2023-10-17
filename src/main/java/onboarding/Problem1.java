@@ -5,7 +5,8 @@ import java.util.List;
 class Problem1 {
     public static int solution(List<Integer> pobi, List<Integer> crong) {
         int answer = Integer.MAX_VALUE;
-        findMaxByUser(pobi);
+        System.out.println(isPageNormal(pobi));
+        System.out.println(isPageNormal(crong));
         return answer;
     }
 
@@ -25,5 +26,19 @@ class Problem1 {
         System.out.println(PageAddScore);
         System.out.println(PageMultiScore);
         return Math.max(PageAddScore, PageMultiScore);
+    }
+    public static boolean isPageNormal(List<Integer> user) {
+        int leftPage = user.get(0);
+        int rightPage = user.get(1);
+        if(!(leftPage>0&&leftPage<=400&&rightPage>0&&rightPage<=400)){
+            return false;
+        }
+        if (leftPage + 1 != rightPage) {
+            return false;
+        }
+        if (leftPage % 2 != 1 || rightPage % 2 != 0) {
+            return false;
+        }
+        return true;
     }
 }
