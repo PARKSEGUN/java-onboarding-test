@@ -11,9 +11,8 @@ public class Problem2 {
     //스택을 사용해서 중복제거 후 answer 리턴
     public static String pushAnswer(String cryptogram) {
         Stack<Character> answer = new Stack<>();
-        answer.push(cryptogram.charAt(0));
-        for (int idx = 1; idx < cryptogram.length(); idx++) {
-            if (answer.lastElement() == cryptogram.charAt(idx)) {
+        for (int idx = 0; idx < cryptogram.length(); idx++) {
+            if (answer.size()>0&&answer.lastElement() == cryptogram.charAt(idx)) {
                 idx = findFitIdx(answer.lastElement(), idx, cryptogram);
                 answer.pop();
                 continue;
