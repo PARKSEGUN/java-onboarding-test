@@ -46,8 +46,8 @@ class Problem1 {
             PageMultiScore *= page % 10;
             page /= 10;
         }
-        System.out.println(PageAddScore);
-        System.out.println(PageMultiScore);
+//        System.out.println(PageAddScore);
+//        System.out.println(PageMultiScore);
         return Math.max(PageAddScore, PageMultiScore);
     }
     //주어진 페이지 번호들의 정보가 잘못된것은 없는지 확인해주는 메서드
