@@ -29,7 +29,15 @@ public class Problem6 {
         return null;
     }
 
-
+    private static List<String> divideString(String nickname) {
+        List<String> dividedStrings=new ArrayList<>();
+        for (int i = 0; i+1 < nickname.length(); i++) {
+            String dividedString = nickname.substring(i, i + 2);
+            dividedStrings.add(dividedString);
+        }
+        System.out.println(dividedStrings);
+        return dividedStrings;
+    }
 
 
 }
