@@ -83,7 +83,6 @@ public class Problem6 {
 
     //문자열을 받아서 길이가 2인 쪼개진 문자열List로 반환
     //문자열을 받아서
-    //길이가 2인 문자열로 나눠서 리스트에 저장후 반환
     private static List<String> divideString(String nickname) {
         List<String> dividedStrings = new ArrayList<>();
         for (int i = 0; i + 1 < nickname.length(); i++) {
