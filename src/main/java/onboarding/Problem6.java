@@ -19,7 +19,13 @@ public class Problem6 {
     Set<String> resultEmails = new HashSet<>();
     public static List<String> solution(List<List<String>> forms) {
         List<String> answer = List.of("answer");
-
         return answer;
     }
+
+    private static void verifyFormsSize(int formsSize) throws Exception {
+        if (formsSize < 1 && formsSize > 10000) {
+            throw new Exception("forms의 길이가 1이상 100000이하가 아닙니다.");
+        }
+    }
+
 }
