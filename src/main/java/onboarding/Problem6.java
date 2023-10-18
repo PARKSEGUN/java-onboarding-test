@@ -1,61 +1,85 @@
 package onboarding;
 
+import net.bytebuddy.TypeCache;
+
 import java.util.*;
 
 
-//1. 두글자씩 잘라진 문자열을 저장하기 위한 Map 선언
-//        2. 이메일 정보를 저장할 Set 선언
-//        3. 닉네임을 두글자씩 잘라서 Map에 중복된 내용이 있는지 확인후에 저장
-//        4. 존재한다면 Map에 연결된 이메일을 Set에 저장
-//        5. Set을 사용했기때문에 중복은 제거되었고 오름차순으로 정렬
+//1. 주어진 forms의 nickname 정보를 2글자 기준으로 나누기
+//        2. Map<String,List<String>> 에 값을 넣어주기위한 함수
+//        3. Map에 잘라진 문자들을 key로 key값에 맞는 email을 저장
+//        4. key값이 존재한다면 List에 추가하면서 저장
+//        5. Map의 value부분의 크기가 2이상인 것들을 빼오기
+//        6. 이 값들은 중복된 정보들의 email을 뜻하기에 정렬후 반환
 
 public class Problem6 {
-    public static List<String> solution(List<List<String>> forms){
-        List<String> answer = List.of("answer");
-        Map<String, String> dividedNicknameAndEmail = divideNickname(forms);
-//       List<String> duplicatedForms= findDuplicatedNickname(forms, dividedNicknameAndEmail);
+    public static List<String> solution(List<List<String>> forms) {
+        List<String> answer = findEmails(forms);
+
         return answer;
     }
 
-//    private static List<String> findDuplicatedNickname(List<List<String>> forms, Map<String, String> dividedNicknameAndEmail) {
-//        for (List<String> form : forms) {
-//            String email = form.get(0);
-//            String nickname = form.get(1);
-//
-//        }
-//    }
-
-    private static Map<String, String> divideNickname(List<List<String>> forms) {
-        List<String> resultEmails = new ArrayList<>();
-        Map<String,List<String>> allDividedNicknames = new HashMap<>();
-        allDividedNicknames.get("asdf");
+    private static List<String> findEmails(List<List<String>> forms) {
+        Map<String, List<String>> emailByDividedNickName = new HashMap<>();
         for (List<String> form : forms) {
             String email = form.get(0);
             String nickname = form.get(1);
-            List<String> dividedNicknames = divideString(nickname);
+            List<String> dividedList = divideString(nickname);
+            emailByDividedNickName = checkDuplication(emailByDividedNickName, dividedList, email);
         }
-        System.out.println(dividedNicknames);
-
-        return dividedNicknameAndEmail;
+        List<String> emailsByDuplicatedNickname = findEmailsByMap(emailByDividedNickName);
+        List<String> sortedEmails = sortEmail(emailsByDuplicatedNickname);
+        return sortedEmails;
     }
 
-    private static String addDuplicateNickname(Set<String> allDividedNicknames, List<String> dividedNicknames,String email) {
-        for (String dividedNickname : dividedNicknames) {
-            if(allDividedNicknames.contains(dividedNickname)){
-                return email;
+
+    private static List<String> sortEmail(List<String> emailsByDuplicatedNickname) {
+        Collections.sort(emailsByDuplicatedNickname);
+        return emailsByDuplicatedNickname;
+    }
+
+    private static List<String> findEmailsByMap(Map<String, List<String>> emailByDividedNickName) {
+        List<String> result = new ArrayList<>();
+        for (List<String> emails: emailByDividedNickName.values()) {
+            result=inputResult(result, emails);
+        }
+        return result;
+    }
+    //
+    private static List<String> inputResult(List<String> result, List<String> emails) {
+        if (emails.size() >= 2) {
+            for (String email : emails) {
+                result.add(email);
             }
         }
+        return result;
     }
 
+    //쪼개진 부분을 Map에서 Key값으로 갖고있는지를 확인
+    //갖고있다면 중복이므로 value에 추가
+    //갖고있지 않다면 value 초기화
+    private static Map<String, List<String>> checkDuplication(Map<String, List<String>> emailByDividedNickName, List<String> dividedList, String email) {
+        for (String divided : dividedList) {
+            if (emailByDividedNickName.containsKey(divided)) {
+                List<String> emailList = emailByDividedNickName.get(divided);
+                emailList.add(email);
+                emailByDividedNickName.put(divided, emailList);
+            } else {
+                emailByDividedNickName.put(divided, new ArrayList(Arrays.asList(email)));
+            }
+        }
+        return emailByDividedNickName;
+    }
+
+    //문자열을 받아서 길이가 2인 쪼개진 문자열List로 반환
     private static List<String> divideString(String nickname) {
-        List<String> dividedStrings=new ArrayList<>();
-        for (int i = 0; i+1 < nickname.length(); i++) {
+        List<String> dividedStrings = new ArrayList<>();
+        for (int i = 0; i + 1 < nickname.length(); i++) {
             String dividedString = nickname.substring(i, i + 2);
             dividedStrings.add(dividedString);
         }
         return dividedStrings;
     }
-
 
 
 }
