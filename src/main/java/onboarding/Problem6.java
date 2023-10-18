@@ -13,20 +13,38 @@ public class Problem6 {
     public static List<String> solution(List<List<String>> forms){
         List<String> answer = List.of("answer");
         Map<String, String> dividedNicknameAndEmail = divideNickname(forms);
-        divideString("asdfzxcv");
-
-
+//       List<String> duplicatedForms= findDuplicatedNickname(forms, dividedNicknameAndEmail);
         return answer;
     }
 
+//    private static List<String> findDuplicatedNickname(List<List<String>> forms, Map<String, String> dividedNicknameAndEmail) {
+//        for (List<String> form : forms) {
+//            String email = form.get(0);
+//            String nickname = form.get(1);
+//
+//        }
+//    }
+
     private static Map<String, String> divideNickname(List<List<String>> forms) {
-        Map<String, String> dividedNicknameAndEmail = new HashMap<>();
+        List<String> resultEmails = new ArrayList<>();
+        Map<String,List<String>> allDividedNicknames = new HashMap<>();
+        allDividedNicknames.get("asdf");
         for (List<String> form : forms) {
             String email = form.get(0);
             String nickname = form.get(1);
-            List<String> dividedNickname = divideString(nickname);
+            List<String> dividedNicknames = divideString(nickname);
         }
-        return null;
+        System.out.println(dividedNicknames);
+
+        return dividedNicknameAndEmail;
+    }
+
+    private static String addDuplicateNickname(Set<String> allDividedNicknames, List<String> dividedNicknames,String email) {
+        for (String dividedNickname : dividedNicknames) {
+            if(allDividedNicknames.contains(dividedNickname)){
+                return email;
+            }
+        }
     }
 
     private static List<String> divideString(String nickname) {
@@ -35,9 +53,9 @@ public class Problem6 {
             String dividedString = nickname.substring(i, i + 2);
             dividedStrings.add(dividedString);
         }
-        System.out.println(dividedStrings);
         return dividedStrings;
     }
+
 
 
 }
