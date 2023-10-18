@@ -1,8 +1,6 @@
 package onboarding;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 //객체를 정렬하기위한 compareTo 메서드를 사용하기위해 Comparable interface 를 상속받는다.
 //주어진 friends 정보에서 user의 친구를 뽑아낸다
@@ -30,9 +28,6 @@ class People implements Comparable {
 //        this.isUserFriend = true;
 //    }
 
-    public void modifyScoreAdd10() {
-        this.score += 10;
-    }
 
     @Override
     public int compareTo(Object o) {
@@ -48,6 +43,10 @@ class People implements Comparable {
                 '}';
     }
 
+    public List<People> getFriends() {
+        return friends;
+    }
+
     public boolean isEqualName(String name) {
         if (this.name.equals(name)) {
             return true;
@@ -57,6 +56,16 @@ class People implements Comparable {
 
     public void saveFriends(List<People> userFriends) {
         this.friends = userFriends;
+    }
+
+    public Map<String, Integer> modifyScoreAdd10(Map<String, Integer> scoreByName, People people) {
+        if (scoreByName.containsKey(people.name)) {
+            int score = scoreByName.get(people.name).intValue();
+            scoreByName.put(people.name, score+10);
+        } else if (!scoreByName.containsKey(people.name)) {
+            scoreByName.put(people.name, 10);
+        }
+        return scoreByName;
     }
 }
 
@@ -69,14 +78,22 @@ public class Problem7 {
         userFriends = findFriends(userFriends, friends, userByPeople);
         userByPeople.saveFriends(userFriends);
 
+        List<People> friendsByUserFriends = new ArrayList<>();
         for (People userFriend : userFriends) {
-            List<People> friendsByUserFriends = new ArrayList<>();
+
             friendsByUserFriends = findFriends(friendsByUserFriends, friends, userFriend);
+
             userFriend.saveFriends(friendsByUserFriends);
         }
-        System.out.println(userFriends);
+        Map<String, Integer> scoreByName = new HashMap<>();
+        for (People friendsByUserFriend : friendsByUserFriends) {
+            friendsByUserFriend.modifyScoreAdd10(scoreByName, friendsByUserFriend);
+        }
+        System.out.println(scoreByName);
+
         return answer;
     }
+
 
     private static List<People> findFriends(List<People> userFriends, List<List<String>> friends, People people) {
         for (List<String> friend : friends) {
