@@ -13,17 +13,27 @@ import java.util.List;
 //모든 점수를 더해주었을때에 가장 점수가 높은 5명 추출
 //점수가 같다면 이름을 기준으로 오름차순 정렬
 class People implements Comparable {
+
     private String name;
-    private boolean isUserFriend=false;
+
+//    private boolean isUserFriend = false;
+
     private int score = 0;
+
+    private List<People> friends = new ArrayList<>();
 
     public People(String name) {
         this.name = name;
     }
 
-    public void modifyIsUserFriendTrue() {
-        this.isUserFriend = true;
+//    public void modifyIsUserFriendTrue() {
+//        this.isUserFriend = true;
+//    }
+
+    public void modifyScoreAdd10() {
+        this.score += 10;
     }
+
     @Override
     public int compareTo(Object o) {
         return 0;
@@ -33,31 +43,47 @@ class People implements Comparable {
     public String toString() {
         return "People{" +
                 "name='" + name + '\'' +
-                ", isUserFriend=" + isUserFriend +
                 ", score=" + score +
+                ", friends=" + friends +
                 '}';
+    }
+
+    public boolean isEqualName(String name) {
+        if (this.name.equals(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void saveFriends(List<People> userFriends) {
+        this.friends = userFriends;
     }
 }
 
 public class Problem7 {
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
         List<String> answer = Collections.emptyList();
+        People userByPeople = new People(user);
         List<People> userFriends = new ArrayList<>();
-        List<People> friendsByUserFriends = new ArrayList<>();
-        userFriends=findFriends(userFriends,friends,user);
+
+        userFriends = findFriends(userFriends, friends, userByPeople);
+        userByPeople.saveFriends(userFriends);
+
         for (People userFriend : userFriends) {
-            friendsByUserFriends=findFriends(friendsByUserFriends,friends,userFriend.);
+            List<People> friendsByUserFriends = new ArrayList<>();
+            friendsByUserFriends = findFriends(friendsByUserFriends, friends, userFriend);
+            userFriend.saveFriends(friendsByUserFriends);
         }
-        System.out.println(friendsByUserFriends);
+        System.out.println(userFriends);
         return answer;
     }
 
-    private static List<People> findFriends(List<People> userFriends,List<List<String>> friends,String user) {
+    private static List<People> findFriends(List<People> userFriends, List<List<String>> friends, People people) {
         for (List<String> friend : friends) {
             String name1 = friend.get(0);
             String name2 = friend.get(1);
-            String userFriend = findFriend(name1, name2, user);
-            userFriends = addUserFriend(userFriends,userFriend);
+            String userFriend = findFriend(name1, name2, people);
+            userFriends = addUserFriend(userFriends, userFriend);
         }
         return userFriends;
     }
@@ -67,15 +93,14 @@ public class Problem7 {
             return userFriends;
         }
         People friend = new People(userFriend);
-        friend.modifyIsUserFriendTrue();
         userFriends.add(friend);
         return userFriends;
     }
 
-    private static String findFriend(String name1, String name2, String user) {
-        if (name1.equals(user)) {
+    private static String findFriend(String name1, String name2, People people) {
+        if (people.isEqualName(name1)) {
             return name2;
-        } else if (name2.equals(user)) {
+        } else if (people.isEqualName(name2)) {
             return name1;
         }
         return "";
