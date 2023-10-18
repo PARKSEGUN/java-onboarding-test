@@ -13,9 +13,9 @@ import java.util.List;
 //모든 점수를 더해주었을때에 가장 점수가 높은 5명 추출
 //점수가 같다면 이름을 기준으로 오름차순 정렬
 class People implements Comparable {
-    String name;
-    boolean isUserFriend=false;
-    int score = 0;
+    private String name;
+    private boolean isUserFriend=false;
+    private int score = 0;
 
     public People(String name) {
         this.name = name;
@@ -43,16 +43,20 @@ public class Problem7 {
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
         List<String> answer = Collections.emptyList();
         List<People> userFriends = new ArrayList<>();
-        userFriends=findUserFriends(userFriends,friends,user);
-        System.out.println(userFriends);
+        List<People> friendsByUserFriends = new ArrayList<>();
+        userFriends=findFriends(userFriends,friends,user);
+        for (People userFriend : userFriends) {
+            friendsByUserFriends=findFriends(friendsByUserFriends,friends,userFriend.);
+        }
+        System.out.println(friendsByUserFriends);
         return answer;
     }
 
-    private static List<People> findUserFriends(List<People> userFriends,List<List<String>> friends,String user) {
+    private static List<People> findFriends(List<People> userFriends,List<List<String>> friends,String user) {
         for (List<String> friend : friends) {
             String name1 = friend.get(0);
             String name2 = friend.get(1);
-            String userFriend = findUserFriend(name1, name2, user);
+            String userFriend = findFriend(name1, name2, user);
             userFriends = addUserFriend(userFriends,userFriend);
         }
         return userFriends;
@@ -68,7 +72,7 @@ public class Problem7 {
         return userFriends;
     }
 
-    private static String findUserFriend(String name1, String name2, String user) {
+    private static String findFriend(String name1, String name2, String user) {
         if (name1.equals(user)) {
             return name2;
         } else if (name2.equals(user)) {
