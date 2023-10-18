@@ -13,6 +13,9 @@ import java.util.List;
 //        - [x] 비교 결과에 따른 주어진 조건에 맞는 형식으로 리턴
 
 class Problem1 {
+    static final int FIRST_PAGE = 1;    //고정된 전역변수나 지역변수는 대문자와 언더바 사용
+    static final int FINAL_PAGE = 400;
+
     public static int solution(List<Integer> pobi, List<Integer> crong) {
         int answer = Integer.MAX_VALUE;
         try {
