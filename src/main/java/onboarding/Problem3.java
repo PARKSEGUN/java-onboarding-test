@@ -28,7 +28,8 @@ public class Problem3 {
     private static int isDivide3(int curNumber) {
         if (curNumber!=0&&curNumber % 3 == 0) {
             return 1;
-        } else return 0;
+        }
+        return 0;
     }
 
 }
