@@ -28,6 +28,15 @@ class People implements Comparable {
     public int compareTo(Object o) {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "People{" +
+                "name='" + name + '\'' +
+                ", isUserFriend=" + isUserFriend +
+                ", score=" + score +
+                '}';
+    }
 }
 
 public class Problem7 {
@@ -35,6 +44,7 @@ public class Problem7 {
         List<String> answer = Collections.emptyList();
         List<People> userFriends = new ArrayList<>();
         userFriends=findUserFriends(userFriends,friends,user);
+        System.out.println(userFriends);
         return answer;
     }
 
@@ -49,6 +59,7 @@ public class Problem7 {
         return userFriends;
     }
 
+
     private static String findUserFriend(String name1, String name2, String user) {
         if (name1.equals(user)) {
             return name2;
@@ -57,5 +68,6 @@ public class Problem7 {
         }
         return "";
     }
+
 
 }
