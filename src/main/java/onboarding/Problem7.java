@@ -1,5 +1,6 @@
 package onboarding;
 
+import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import java.util.*;
 
 class People implements Comparable<People> {
@@ -16,7 +17,7 @@ class People implements Comparable<People> {
         if (this.score == o.score) {
             return this.name.compareTo(o.name);
         }
-        return  o.score-this.score ;
+        return o.score - this.score;
     }
 
     @Override
@@ -26,26 +27,29 @@ class People implements Comparable<People> {
                 ", score=" + score +
                 '}';
     }
+
+    public static List<String> peopleToList(List<People> peopleList) {
+        List<String> result = new ArrayList<>();
+        for (People people : peopleList) {
+            result.add(people.name);
+        }
+        return result;
+    }
 }
 
 public class Problem7 {
 
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
-        List<String> answer = new ArrayList<>();
         List<String> userFriends = findFriends(friends, user);
         List<String> friendsByUserFriends = findFriendsByUserFriends(friends, user, userFriends);
         Map<String, Integer> scoreByName = makeMap(user, userFriends, friendsByUserFriends, visitors);
-        findAnswer(answer, scoreByName);
-        return answer;
+        return findAnswer(scoreByName);
     }
 
-    private static void findAnswer(List<String> answer, Map<String, Integer> scoreByName) {
-
+    private static List<String> findAnswer(Map<String, Integer> scoreByName) {
         List<People> peopleList = mapToClass(scoreByName);
-
-        System.out.println(peopleList);
         Collections.sort(peopleList);
-        System.out.println(peopleList);
+        return People.peopleToList(peopleList);
     }
 
     private static List<People> mapToClass(Map<String, Integer> scoreByName) {
@@ -58,8 +62,8 @@ public class Problem7 {
 
     private static Map<String, Integer> makeMap(String user, List<String> userFriends, List<String> friendsByUserFriends, List<String> visitors) {
         Map<String, Integer> scoreByName = putToMap(friendsByUserFriends);
-        deleteUserAndUserFriend(scoreByName, user, userFriends);
         plusScoreByVisitors(scoreByName, visitors);
+        deleteUserAndUserFriend(scoreByName, user, userFriends);
         return scoreByName;
     }
 
