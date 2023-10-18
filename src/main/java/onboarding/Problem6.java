@@ -19,6 +19,9 @@ public class Problem6 {
         return answer;
     }
 
+    //중복된 닉네임값을 갖는 이메일을 찾아주는 함수
+    //forms 정보를 받고
+    //정렬된 이메일 리스트를 반환
     private static List<String> findEmails(List<List<String>> forms) {
         Map<String, List<String>> emailByDividedNickName = new HashMap<>();
         for (List<String> form : forms) {
@@ -32,12 +35,17 @@ public class Problem6 {
         return sortedEmails;
     }
 
-
+    //이메일들을 받아서 정렬시켜주는 함수
+    //이메일 리스트를 받아서
+    //오름차순 정렬된 이메일 리스트로 반환
     private static List<String> sortEmail(List<String> emailsByDuplicatedNickname) {
         Collections.sort(emailsByDuplicatedNickname);
         return emailsByDuplicatedNickname;
     }
 
+    //Map에 저장한 값들중에서 중복된 닉네임이 있는지 확인하고 리턴시켜주는 함수
+    //잘라진 닉네임과 연견된 email을 갖고있는 Map을 통해
+    //중복된 닉네임의 이메일 리스트를 반환
     private static List<String> findEmailsByMap(Map<String, List<String>> emailByDividedNickName) {
         List<String> result = new ArrayList<>();
         for (List<String> emails: emailByDividedNickName.values()) {
@@ -45,7 +53,9 @@ public class Problem6 {
         }
         return result;
     }
-    //
+    //현재 탐색하고있는 이메일 리스트가 정답이 되는 것인지 확인하는 함수
+    //반환시킬 result정보와 이메일 리스트 정보를 받아서
+    //정답이되는 이메일 리스트를 result에 추가해서 반환
     private static List<String> inputResult(List<String> result, List<String> emails) {
         if (emails.size() >= 2) {
             for (String email : emails) {
@@ -72,6 +82,8 @@ public class Problem6 {
     }
 
     //문자열을 받아서 길이가 2인 쪼개진 문자열List로 반환
+    //문자열을 받아서
+    //길이가 2인 문자열로 나눠서 리스트에 저장후 반환
     private static List<String> divideString(String nickname) {
         List<String> dividedStrings = new ArrayList<>();
         for (int i = 0; i + 1 < nickname.length(); i++) {
