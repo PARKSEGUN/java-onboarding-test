@@ -22,10 +22,11 @@ public class Problem6 {
         return answer;
     }
 
-    private static void verifyFormsSize(int formsSize) throws Exception {
-        if (formsSize < 1 && formsSize > 10000) {
-            throw new Exception("forms의 길이가 1이상 100000이하가 아닙니다.");
+    private static void verifyInputSize(int inputSize,int begin,int end) throws Exception {
+        if (inputSize < begin || inputSize > end) {
+            throw new Exception("입력 길이가"+begin+"이상 "+end+"이하가 아닙니다.");
         }
     }
+
 
 }
