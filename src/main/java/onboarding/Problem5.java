@@ -13,10 +13,14 @@ public class Problem5 {
         List<Integer> moneyUnit = List.of(50000, 10000, 5000, 1000, 500, 100, 50, 10, 1);
         moneyUnit.add(0);
         for (Integer unit : moneyUnit) {
-            answer.add(money/unit);
+            answer.add(findCount(money,unit));
             money %= unit;
         }
         return answer;
+    }
+
+    private static Integer findCount(int money, Integer unit) {
+        return money / unit;
     }
 
 }
