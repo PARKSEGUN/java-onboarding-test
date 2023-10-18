@@ -6,7 +6,7 @@
 
 ---
 
-
+[//]: # (docs:&#40;problem6&#41;:add implementation specification구현 명세서)
 ##  구현 기능 목록
 
 ### 입력값 검증 기능 ️✔
