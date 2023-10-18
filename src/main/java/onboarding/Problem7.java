@@ -14,38 +14,21 @@ class People implements Comparable {
 
     private String name;
 
-//    private boolean isUserFriend = false;
-
     private int score = 0;
 
-    private List<People> friends = new ArrayList<>();
+//    private List<People> friends = new ArrayList<>();
 
     public People(String name) {
         this.name = name;
     }
-
-//    public void modifyIsUserFriendTrue() {
-//        this.isUserFriend = true;
-//    }
-
 
     @Override
     public int compareTo(Object o) {
         return 0;
     }
 
-    @Override
-    public String toString() {
-        return "People{" +
-                "name='" + name + '\'' +
-                ", score=" + score +
-                ", friends=" + friends +
-                '}';
-    }
 
-    public List<People> getFriends() {
-        return friends;
-    }
+//
 
     public boolean isEqualName(String name) {
         if (this.name.equals(name)) {
@@ -53,10 +36,10 @@ class People implements Comparable {
         }
         return false;
     }
-
-    public void saveFriends(List<People> userFriends) {
-        this.friends = userFriends;
-    }
+//
+//    public void saveFriends(List<People> userFriends) {
+//        this.friends = userFriends;
+//    }
 
     public Map<String, Integer> modifyScoreAdd10(Map<String, Integer> scoreByName, People people) {
         if (scoreByName.containsKey(people.name)) {
@@ -74,24 +57,24 @@ public class Problem7 {
         List<String> answer = Collections.emptyList();
         People userByPeople = new People(user);
         List<People> userFriends = new ArrayList<>();
+        List<People> friendsByUserFriends = new ArrayList<>();
+        Map<String, Integer> scoreByName = new HashMap<>();
 
         userFriends = findFriends(userFriends, friends, userByPeople);
-        userByPeople.saveFriends(userFriends);
-
-        List<People> friendsByUserFriends = new ArrayList<>();
-        for (People userFriend : userFriends) {
-
-            friendsByUserFriends = findFriends(friendsByUserFriends, friends, userFriend);
-
-            userFriend.saveFriends(friendsByUserFriends);
-        }
-        Map<String, Integer> scoreByName = new HashMap<>();
+        friendsByUserFriends = findFriendsByUserFriends(userFriends, friends, friendsByUserFriends);
         for (People friendsByUserFriend : friendsByUserFriends) {
             friendsByUserFriend.modifyScoreAdd10(scoreByName, friendsByUserFriend);
         }
         System.out.println(scoreByName);
-
+        
         return answer;
+    }
+
+    private static List<People> findFriendsByUserFriends(List<People> userFriends, List<List<String>> friends, List<People> friendsByUserFriends) {
+        for (People userFriend : userFriends) {
+            friendsByUserFriends = findFriends(friendsByUserFriends, friends, userFriend);
+        }
+        return friendsByUserFriends;
     }
 
 
