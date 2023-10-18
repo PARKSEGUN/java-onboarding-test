@@ -34,11 +34,22 @@ public class Problem7 {
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
         List<String> answer = Collections.emptyList();
         List<People> userFriends = new ArrayList<>();
+        userFriends=findUserFriends(userFriends,friends,user);
         return answer;
     }
 
+    private static List<People> findUserFriends(List<People> userFriends,List<List<String>> friends,String user) {
+        for (List<String> friend : friends) {
+            String name1 = friend.get(0);
+            String name2 = friend.get(1);
+            People userFriend = new People(findUserFriend(name1, name2, user));
+            userFriend.modifyIsUserFriendTrue();
+            userFriends.add(userFriend);
+        }
+        return userFriends;
+    }
 
-    private static String findByUserFriend(String name1, String name2, String user) {
+    private static String findUserFriend(String name1, String name2, String user) {
         if (name1.equals(user)) {
             return name2;
         } else if (name2.equals(user)) {
