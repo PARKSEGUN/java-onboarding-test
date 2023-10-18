@@ -52,13 +52,21 @@ public class Problem7 {
         for (List<String> friend : friends) {
             String name1 = friend.get(0);
             String name2 = friend.get(1);
-            People userFriend = new People(findUserFriend(name1, name2, user));
-            userFriend.modifyIsUserFriendTrue();
-            userFriends.add(userFriend);
+            String userFriend = findUserFriend(name1, name2, user);
+            userFriends = addUserFriend(userFriends,userFriend);
         }
         return userFriends;
     }
 
+    private static List<People> addUserFriend(List<People> userFriends, String userFriend) {
+        if (userFriend.equals("")) {
+            return userFriends;
+        }
+        People friend = new People(userFriend);
+        friend.modifyIsUserFriendTrue();
+        userFriends.add(friend);
+        return userFriends;
+    }
 
     private static String findUserFriend(String name1, String name2, String user) {
         if (name1.equals(user)) {
