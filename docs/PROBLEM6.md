@@ -21,3 +21,31 @@
 | forms | result |
 | --- | --- |
 | [ ["jm@email.com", "제이엠"], ["jason@email.com", "제이슨"], ["woniee@email.com", "워니"], ["mj@email.com", "엠제이"], ["nowm@email.com", "이제엠"] ] | ["jason@email.com", "jm@email.com", "mj@email.com"] |
+
+---
+
+##  구현 기능 목록
+
+### 입력값 검증 기능 ️✔
+
+### 두 글자 이상의 문자가 연속적으로 순서에 맞추어 포함되어 있는지 확인하는 기능
+- [ ] 주어진 문자열을 두글자씩 잘라주는 함수
+- [ ] 잘라진 문자열을 Key로 해당 email값들을 value로 갖는 Map<String,List<String>>에 넣어주기
+- [ ] Map의 value의 크기가 2이상인것들을 모두 빼오기
+- [ ] 빼온 값들을 중복된 email임으로 정렬후 리턴
+
+### return해줄 result를 email기준으로 오름차순 정렬 해주는 기능
+-  [ ] 결과값을 email에 대해 오름차순으로 정렬해준다.
+### return 해줄 result의 중복을 제거 해주는 기능
+-  [ ] 결과값을 email에 대해 오름차순으로 정렬해준다.
+
+---
+
+## 구현 로직
+
+1. 주어진 forms의 nickname 정보를 2글자 기준으로 나누기
+2. Map<String,List<String>> 을 선언
+3. Map에 잘라진 문자들을 key로 key값에 맞는 email을 저장
+4. key값이 존재한다면 List에 추가하면서 저장
+5. Map의 value부분의 크기가 2이상인 것들을 빼오기
+6. 이 값들은 중복된 정보들의 email을 뜻하기에 정렬후 반환
